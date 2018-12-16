@@ -3,6 +3,7 @@
     <div id='app'>
       <h1>{{greeting}}</h1>
       <p>{{name}}</p>
+      <button v-on:click='show'>Show Name</button>
     </div>
 
     <script type='text/javascript' src='js/v.js'></script>
@@ -13,6 +14,11 @@
         data: {
           greeting: 'Hello',
           name: 'Jeremy'
+        },
+        methods: {
+          show() {
+            alert(this.name)
+          }
         }
       })
 

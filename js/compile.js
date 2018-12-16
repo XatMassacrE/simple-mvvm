@@ -6,7 +6,7 @@ class Compile {
     const node = document.querySelector(el)
     this.fragments = this.node2Fragments(node)
 
-    this.replaceTemplate(this.fragments)
+    this.compile(this.fragments)
     node.appendChild(this.fragments)
   }
 
@@ -19,23 +19,53 @@ class Compile {
     return fragments
   }
 
-  replaceTemplate(fragments) {
+  compile(fragments) {
     const nodes = fragments.childNodes
     Array.from(nodes).forEach(node => {
-      let text = node.textContent
-      const reg = /\{\{(.*)\}\}/
+      
+      /*
+       * nodeType:
+       * 1: elementNode
+       * 3: textNode
+       */
+      if (node.nodeType == 1) {
+        this.compileElementNode(node)
 
-      if (reg.test(text)) {
-        const key = RegExp.$1
-        node.textContent = text.replace(reg, this.vm[key])
-      }
-      console.log(node)
-
-      if (node.childNodes && node.childNodes.length > 0) {
+      } else if (node.nodeType == 3) {
         this.replaceTemplate(node)
       }
+      
+      if (node.childNodes && node.childNodes.length > 0) {
+        this.compile(node)
+      }
     })
+  }
 
+  compileElementNode(node) {
+    const nodeAttrs = node.attributes
+    Array.from(nodeAttrs).forEach(attr => {
+      const attrName = attr.name
+      if (attrName.indexOf('v-on') == 0) {
+        const value = attr.value
+        const eventType = attrName.split(':')[1]
+        const fn = this.vm._options.methods[value]
+        this.addEvent(node, eventType, fn)
+      }
+      node.removeAttribute(attrName)
+    })
+  }
+
+  replaceTemplate(node) {
+    const text = node.textContent
+    const reg = /\{\{(.*)\}\}/
+    if (reg.test(text)) {
+      const key = RegExp.$1
+      node.textContent = this.vm[key]
+    }
+  }
+
+  addEvent(node, eventType, fn) {
+    node.addEventListener(eventType, fn.bind(this.vm))
   }
 
 }
