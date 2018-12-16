@@ -1,20 +1,23 @@
 <html>
   <body>
-    <div id='app'>xixi</div>
+    <div id='app'>
+      <h1>{{greeting}}</h1>
+      <p>{{name}}</p>
+    </div>
 
     <script type='text/javascript' src='js/v.js'></script>
+    <script type='text/javascript' src='js/compile.js'></script>
 
     <script type='text/javascript'>
       const v = new V({
         data: {
-          'name': 'Jeremy'
+          greeting: 'Hello',
+          name: 'Jeremy'
         }
       })
 
-      console.log(v.name)
-      v.name = 'xixi'
-      console.log(v.name)
-      console.log(Object.keys(v))
+      const c = new Compile('#app', v)
+
     </script>
   </body>
 </html>
