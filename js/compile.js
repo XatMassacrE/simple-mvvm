@@ -1,3 +1,4 @@
+let watchers = {}
 
 class Compile {
 
@@ -32,7 +33,7 @@ class Compile {
         this.compileElementNode(node)
 
       } else if (node.nodeType == 3) {
-        this.replaceTemplate(node)
+        this.compileTextNode(node)
       }
       
       if (node.childNodes && node.childNodes.length > 0) {
@@ -55,13 +56,22 @@ class Compile {
     })
   }
 
-  replaceTemplate(node) {
+  compileTextNode(node) {
     const text = node.textContent
     const reg = /\{\{(.*)\}\}/
     if (reg.test(text)) {
       const key = RegExp.$1
-      node.textContent = this.vm[key]
+      const value = this.vm[key]
+      this.replaceText(node, key)
+      const watcher = new Watcher(key, value => {
+        this.replaceText(node, value)
+      })
+      watchers[key] = watcher
     }
+  }
+
+  replaceText(node, value) {
+    node.textContent = value
   }
 
   addEvent(node, eventType, fn) {

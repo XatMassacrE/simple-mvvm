@@ -4,10 +4,14 @@
       <h1>{{greeting}}</h1>
       <p>{{name}}</p>
       <button v-on:click='show'>Show Name</button>
+      <div>
+        <button v-on:click='update'>Update</button>
+      </div>
     </div>
 
     <script type='text/javascript' src='js/v.js'></script>
     <script type='text/javascript' src='js/compile.js'></script>
+    <script type='text/javascript' src='js/observer.js'></script>
 
     <script type='text/javascript'>
       const v = new V({
@@ -18,11 +22,15 @@
         methods: {
           show() {
             alert(this.name)
+          },
+          update() {
+            this.name = 'Jack'
           }
         }
       })
 
       const c = new Compile('#app', v)
+      const o = new Observer(v._data)
 
     </script>
   </body>
