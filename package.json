@@ -1,0 +1,23 @@
+{
+  "name": "simple-mvvm",
+  "version": "1.0.0",
+  "description": "This is a demo code to implement a simple mvvm model with basic functions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XatMassacrE/simple-mvvm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XatMassacrE/simple-mvvm/issues"
+  },
+  "homepage": "https://github.com/XatMassacrE/simple-mvvm#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.11.0"
+  }
+}
