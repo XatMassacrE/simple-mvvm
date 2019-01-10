@@ -41,3 +41,4 @@ __pycache__/
 *.pyc
 *~
 vendor/
+node_modules
