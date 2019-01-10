@@ -4,6 +4,7 @@
   "description": "This is a demo code to implement a simple mvvm model with basic functions.",
   "main": "index.js",
   "scripts": {
+    "dev": "parcel virtual-dom/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
