@@ -36,9 +36,12 @@ bin/
 ### VisualStudioCode ###
 .vscode/
 .history
+.cache
 debug
 __pycache__/
 *.pyc
 *~
 vendor/
 node_modules
+dist
+
